@@ -6,6 +6,7 @@
 #               Peng Hao <penghao@linuxdeepin.com>
 
 #               Codist <countstarlight@gmail.com>
+#               Lapis Apple <laple@pd2.ink>
 
 version_gt() { test "$(echo "$@" | tr " " "\n" | sort -V | head -n 1)" != "$1"; }
 
@@ -32,16 +33,16 @@ extract_archive()
     fi
 }
 
-BOTTLENAME="Deepin-QQ"
-APPVER="9.3.2deepin20"
+BOTTLENAME="Deepin-QQMusic"
+APPVER="17.73deepin10"
 WINEPREFIX="$HOME/.deepinwine/$BOTTLENAME"
-QQ_VER="9.4.3.27712"
-EXEC_PATH="c:/Program Files/Tencent/QQ/Bin/QQ.exe"
+#QQ_VER="9.4.3.27712"
+EXEC_PATH="c:/Program Files/Tencent/QQMusic/QQMusic.exe"
 START_SHELL_PATH="$HOME/.deepinwine/deepin-wine-helper/run_v3.sh"
-QQ_INSTALLER="PCQQ2021"
-QQ_INSTALLER_PATH="c:/Program Files/Tencent/$QQ_INSTALLER-$QQ_VER.exe"
+#QQ_INSTALLER="PCQQ2021"
+#QQ_INSTALLER_PATH="c:/Program Files/Tencent/$QQ_INSTALLER-$QQ_VER.exe"
 export MIME_TYPE=""
-export DEB_PACKAGE_NAME="com.qq.im.deepin"
+export DEB_PACKAGE_NAME="com.qq.music.deepin"
 #export APPRUN_CMD="wine"
 export PATCH_LOADER_ENV=""
 export FILEDLG_PLUGIN="/opt/apps/$DEB_PACKAGE_NAME/files/gtkGetFileNameDlg"
@@ -60,9 +61,10 @@ SwitchToDeepinWine()
 {
     PACKAGE_MANAGER="yay"
     DEEPIN_WINE_DEPENDS="deepin-wine5"
+    msg 0 "Checking dependency.."
     if ! [ -x "$(command -v yay)" ]; then
         if ! [ -x "$(command -v yaourt)" ]; then
-            msg 1 "Need to install 'yay' or 'yaourt' first." >&2
+            msg 1 "Sorry, but you need to install 'yay' or 'yaourt' before that." >&2
             exit 1
         else
             $PACKAGE_MANAGER="yaourt"
@@ -105,12 +107,12 @@ Run()
     fi
 
     if [ -n "$EXEC_PATH" ];then
-        if [ ! -f "$WINEPREFIX/reinstalled" ];then
-            touch $WINEPREFIX/reinstalled
-            env LC_ALL=zh_CN.UTF-8 WINEDLLOVERRIDES="winemenubuilder.exe=d" $START_SHELL_PATH $BOTTLENAME $APPVER "$QQ_INSTALLER_PATH" "$@"
-        else
-            env LC_ALL=zh_CN.UTF-8 $START_SHELL_PATH $BOTTLENAME $APPVER "$EXEC_PATH" "$@"
-        fi
+#        if [ ! -f "$WINEPREFIX/reinstalled" ];then
+#            touch $WINEPREFIX/reinstalled
+#            env LC_ALL=zh_CN.UTF-8 WINEDLLOVERRIDES="winemenubuilder.exe=d" $START_SHELL_PATH $BOTTLENAME $APPVER "$QQ_INSTALLER_PATH" "$@"
+#        else
+    env LC_ALL=zh_CN.UTF-8 $START_SHELL_PATH $BOTTLENAME $APPVER "$EXEC_PATH" "$@"
+#        fi
     else
         env LC_ALL=zh_CN.UTF-8 $START_SHELL_PATH $BOTTLENAME $APPVER "uninstaller.exe" "$@"
     fi
@@ -120,7 +122,7 @@ HelpApp()
 {
 	echo " Extra Commands:"
 	echo " winecfg        Open winecfg"
-	echo " -d/--deepin    Switch to 'deepin-wine'"
+	echo " -d/--deepin    Switch to 'deepin-wine5'"
 	echo " -h/--help      Show program help info"
 }
 

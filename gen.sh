@@ -1,6 +1,6 @@
 #!/bin/sh
 
-PACKAGE_NAME="deepin-wine-qq"
+PACKAGE_NAME="deepin-wine-qqmusic"
 PACKAGE_SUFFIX=(".pkg.tar.xz" ".pkg.tar.zst")
 
 GenPatch()
