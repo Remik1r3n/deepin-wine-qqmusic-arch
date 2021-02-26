@@ -2,12 +2,11 @@
 # Maintainer: taotieren <admin@taotieren.com>
 # Maintainer: Lapis Apple <laple@pd2.ink>
 pkgname=deepin-wine-qqmusic
-pkgver=17.73.10.0001
-#qq_installer=PCQQ2021
+pkgver=17.73.10.0002
 debpkgver=17.73deepin10
 debpkgname="com.qq.music.deepin"
-pkgrel=2
-pkgdesc="Tencent QQMusic on Deepin Wine5(${debpkgname}) For Archlinux (Alpha)"
+pkgrel=1
+pkgdesc="Tencent QQMusic on Deepin Wine5(${debpkgname}) For Archlinux"
 arch=("x86_64")
 url="https://y.qq.com/"
 license=('custom')
@@ -18,7 +17,7 @@ _mirror="https://community-store-packages.deepin.com"
 source=("$_mirror/appstore/pool/appstore/c/${debpkgname}/${debpkgname}_${debpkgver}_i386.deb"
         "run.sh")
 md5sums=('350dd5fb3f0725c76767573397bccd4f'
-         '1c6de297ff0acf1663d2706e5fa43ef3')
+         '0030cd1cbf5221658e386cba1bc60b39')
 
 
 build() {
@@ -27,21 +26,6 @@ build() {
   tar -xvf data.tar.xz -C "${srcdir}/dpkgdir"
   sed "s/\(Categories.*$\)/\1Media;/" -i "${srcdir}/dpkgdir/opt/apps/${debpkgname}/entries/applications/${debpkgname}.desktop"
   sed "s/run.sh\".*/run.sh\"/" -i "${srcdir}/dpkgdir/opt/apps/${debpkgname}/entries/applications/${debpkgname}.desktop"
-  #msg "Extracting Deepin Wine QQMusic archive ..."
-  #7z x -aoa "${srcdir}/dpkgdir/opt/apps/${debpkgname}/files/files.7z" -o"${srcdir}/deepinqqmusicdir"
-  #msg "Cleaning up the original package directory ..."
-  #rm -r "${srcdir}/deepinqqdir/drive_c/Program Files/Tencent/QQMusic"
-  #msg "Patching reg files ..."
-  #patch -p1 -d "${srcdir}/deepinqqdir/" < "${srcdir}/reg.patch"
-  #msg "Creating font file link ..."
-  #ln -sf "/usr/share/fonts/wenquanyi/wqy-microhei/wqy-microhei.ttc" "${srcdir}/deepinqqdir/drive_c/windows/Fonts/wqy-microhei.ttc"
-  #msg "Copying latest QQ installer to ${srcdir}/deepinqqdir/drive_c/Program Files/Tencent/ ..."
-  #install -m644 "${srcdir}/${qq_installer}-${pkgver}.exe" "${srcdir}/deepinqqdir/drive_c/Program Files/Tencent/"
-  #find -L "${srcdir}/deepinqqdir/dosdevices" -maxdepth 1 -type l -delete
-  #msg "Repackaging app archive ..."
-  #7z a -t7z -r "${srcdir}/files.7z" "${srcdir}/deepinqqmusicdir/*"
-  #cp "${srcdir}/dpkgdir/opt/apps/com.qq.music.deepin/files/files.7z" "${srcdir}/"
-  #cp "${srcdir}/dpkgdir/opt/apps/com.qq.music.deepin/files/run.sh" "${srcdir}/"
 }
 
 
@@ -52,11 +36,7 @@ package() {
   cp -r "${srcdir}/dpkgdir/opt/apps/${debpkgname}/entries/icons/" "${pkgdir}/usr/share/"
   msg "Copying deepin files ..."
   install -d "${pkgdir}/opt/apps/${debpkgname}/files"
-  #install -m644 "${srcdir}/files.7z" "${pkgdir}/opt/apps/${debpkgname}/files/"
   install -m644 "${srcdir}/dpkgdir/opt/apps/com.qq.music.deepin/files/files.7z" "${pkgdir}/opt/apps/${debpkgname}/files/"
   cp ${srcdir}/dpkgdir/opt/apps/${debpkgname}/files/helper_archive* "${pkgdir}/opt/apps/${debpkgname}/files/"
-  #install -m755 "${srcdir}/dpkgdir/opt/apps/${debpkgname}/files/gtkGetFileNameDlg" "${pkgdir}/opt/apps/${debpkgname}/files/"
-  #md5sum "${srcdir}/files.7z" | awk '{ print $1 }' > "${pkgdir}/opt/apps/${debpkgname}/files/files.md5sum"
-  #install -m644 "${srcdir}/reg.patch" "${pkgdir}/opt/apps/${debpkgname}/files/"
   install -m755 "${srcdir}/run.sh" "${pkgdir}/opt/apps/${debpkgname}/files/"
 }

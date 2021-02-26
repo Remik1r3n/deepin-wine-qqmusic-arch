@@ -2,24 +2,16 @@
 ========
 
 <p align="center">
-  <a href="https://travis-ci.org/Lapis-Apple/deepin-wine-qqmusic">
-    <img src="https://img.shields.io/travis/Lapis-Apple/deepin-wine-qqmusic?&logo=travis&style=flat-square" alt="Build Status">
   </a>
-  <a href="https://im.qq.com/download/">
-    <img src="https://img.shields.io/badge/QQ-9.4.3.27712-blue?style=flat-square&logo=tencent-qq" alt="QQ Version">
+  <a href="https://github.com/Lapis-Apple/deepin-wine-qqmusic-arch/releases">
+    <img src="https://img.shields.io/github/downloads/Lapis-Apple/deepin-wine-qqmusic-arch/total?logo=github&style=flat-square" alt="GitHub Release">
   </a>
-  <a href="https://aur.archlinux.org/packages/deepin-wine-qq/">
-    <img src="https://img.shields.io/aur/version/deepin-wine-qq?label=AUR&logo=arch-linux&style=flat-square" alt="AUR Version">
-  </a>
-  <a href="https://github.com/Lapis-Apple/deepin-wine-qqmusic/releases">
-    <img src="https://img.shields.io/github/downloads/Lapis-Apple/deepin-wine-qqmusic/total?logo=github&style=flat-square" alt="GitHub Release">
-  </a>
-  <a href="https://github.com/Lapis-Apple/deepin-wine-qqmusic/issues">
-    <img src="https://img.shields.io/github/issues/Lapis-Apple/deepin-wine-qqmusic?logo=github&style=flat-square" alt="GitHub Issues">
+  <a href="https://github.com/Lapis-Apple/deepin-wine-qqmusic-arch/issues">
+    <img src="https://img.shields.io/github/issues/Lapis-Apple/deepin-wine-qqmusic-arch?logo=github&style=flat-square" alt="GitHub Issues">
   </a>
 </p>
 
-Deepin 打包的 QQ音乐 容器移植到 Archlinux，可不依赖 `deepin-wine5`。
+Deepin 打包的 QQ音乐 容器移植到 Archlinux，不依赖 `deepin-wine5`，包含定制的注册表配置。
 
 <!-- TOC -->
 
@@ -30,17 +22,15 @@ Deepin 打包的 QQ音乐 容器移植到 Archlinux，可不依赖 `deepin-wine5
 - [设置](#设置)
 - [兼容性记录](#兼容性记录)
 - [切换到 `deepin-wine`](#切换到-deepin-wine)
-    - [自动切换(推荐)](#自动切换推荐)
-    - [从 `deepin-wine 2.x` 迁移](#从-deepin-wine-2x-迁移)
+    - [自动切换(推荐)](#自动切换)
 - [卸载](#卸载)
 - [常见问题及解决](#常见问题及解决)
-    - [不能记住密码](#不能记住密码)
+    - [窗口阴影不总是跟随窗口](#不能记住密码)
     - [网络连接状态改变后不能重连](#网络连接状态改变后不能重连)
     - [高分辨率屏幕支持](#高分辨率屏幕支持)
     - [GNOME 桌面上的悬浮窗口问题](#gnome-桌面上的悬浮窗口问题)
     - [使用其他字体](#使用其他字体)
 - [感谢](#感谢)
-- [更新日志](#更新日志)
 
 <!-- /TOC -->
 
@@ -61,17 +51,15 @@ Deepin 打包的 QQ音乐 容器移植到 Archlinux，可不依赖 `deepin-wine5
 +Include = /etc/pacman.d/mirrorlist
 ```
 
-**注意：由于新版QQ音乐可能需要 `wine` 还没有实现的一些win api，这会导致一些功能不可用，安装前先根据[兼容性记录](#兼容性记录)选择一个合适的版本**
-
 以下三种安装方式效果相同，选择一种即可
 
 ### 从AUR安装
 
-暂时还没上aur.
+暂未上架AUR.
 
 ### 用安装包安装
 
-还没打。
+在 [GitHub Release](https://github.com/Lapis-Apple/deepin-wine-qqmusic-arch/releases) 页面下载后缀为 `.pkg.tar.xz` 或 `.pkg.tar.zst` 的安装包，使用`pacman`安装：
 
 ```bash
 sudo pacman -U #下载的包名
@@ -85,41 +73,49 @@ md5sum -c *.md5
 
 ### 本地打包安装
 
-咕咕咕。
+```shell
+ git clone https://github.com/Lapis-Apple/deepin-wine-qqmusic-arch.git
+
+ cd deepin-wine-qqmusic-arch
+  
+ makepkg -si
+```
+
+用上述三种安装方式之一安装完成后，运行应用菜单中创建的 QQ音乐 快捷方式即可。
 
 ## 设置
 
 dpi，目录映射等可以在 `winecfg` 进行设置，打开 `winecfg` 的命令为：
 
 ```bash
-/opt/apps/com.qq.im.deepin/files/run.sh winecfg
+/opt/apps/com.qq.music.deepin/files/run.sh winecfg
 ```
 
 ## 兼容性记录
 
-暂未整理。
+暂未整理 :(
 
 ## 切换到 `deepin-wine`
 
 > 根据 [deepin-wine-wechat-arch#15](https://github.com/countstarlight/deepin-wine-wechat-arch/issues/15#issuecomment-515455845)，[deepin-wine-wechat-arch#27](https://github.com/countstarlight/deepin-wine-wechat-arch/issues/27)，由 [@feileb](https://github.com/feileb), [@violetbobo](https://github.com/violetbobo), [@HE7086](https://github.com/HE7086)提供的方法
 
-原版 `wine` 在 [DDE(Deepin Desktop Environment)](https://www.deepin.org/dde/) 上，有托盘图标无法响应鼠标事件([deepin-wine-tim-arch#21](https://github.com/countstarlight/deepin-wine-tim-arch/issues/21))的问题，且原版 `wine` 尚不能实现保存登录密码等功能，可以选择切换到 `deepin-wine5`。
+原版 `wine` 在 [DDE(Deepin Desktop Environment)](https://www.deepin.org/dde/) 上，有托盘图标无法响应鼠标事件([deepin-wine-tim-arch#21](https://github.com/countstarlight/deepin-wine-tim-arch/issues/21))的问题，以及窗口阴影可能不正常的问题，可以选择切换到 `deepin-wine5`。
 
 ### 自动切换(推荐)
 
 ```bash
-/opt/apps/com.qq.im.deepin/files/run.sh -d
+/opt/apps/com.qq.music.deepin/files/run.sh -d
 ```
 
-这会安装需要的依赖，移除已安装的QQ音乐目录并回退对注册表文件的修改。
+这会安装需要的依赖并自动切换到 `deepin-wine5`。
 
-> 从 `v9.4.2.27655-1` 开始，该命令会切换到 AUR 仓库：[deepin-wine5](https://aur.archlinux.org/packages/deepin-wine5)
+> 该命令会切换到 AUR 仓库：[deepin-wine5](https://aur.archlinux.org/packages/deepin-wine5)
 
 
 切换回 `wine`：
 
 ```bash
-rm $HOME/.deepinwine/Deepin-QQ/deepin
+rm $HOME/.deepinwine/Deepin-QQMusic/deepin
 ```
 
 如果要卸载自动安装的依赖：
@@ -135,14 +131,18 @@ sudo pacman -Rns deepin-wine5
 无论用何种方式安装，卸载都是：
 
 ```bash
-sudo pacman -Rns deepin-wine-qq
+sudo pacman -Rns deepin-wine-qqmusic
 ```
 
-卸载的同时会应该删除用户目录下的整个 `WINEPREFIX` 环境，路径为：`~/.deepinwine/Deepin-QQMusic`
+卸载的同时会删除用户目录下的整个 `WINEPREFIX` 环境，路径为：`~/.deepinwine/Deepin-QQMusic`
 
-
+QQ音乐在本地保存的数据不会被删除，如下载的音乐。
 
 ## 常见问题及解决
+
+### 窗口阴影不总是跟随窗口
+
+参照[切换到 `deepin-wine`](#切换到-deepin-wine) 解决
 
 ### 网络连接状态改变后不能重连
 
@@ -160,9 +160,7 @@ sudo pacman -Rns deepin-wine-qq
 
 ### 使用其他字体
 
-默认使用文泉驿微米黑(`wqy-microhei`)字体，可以使用Windows平台常用字体替代，直接将字体文件或字体链接文件放置到字体文件夹就会生效，不会影响系统字体
-
-字体文件夹在：`$HOME/.deepinwine/Deepin-QQ/drive_c/windows/Fonts`
+默认使用 `Noto Sans CJK SC` 字体，可自行更改注册表更换。
 
 ## 感谢
 
@@ -172,6 +170,5 @@ sudo pacman -Rns deepin-wine-qq
 
 * [@ssfdust](https://github.com/ssfdust) 的 [wszqkzqk-deepin-wine-tim-arch](https://github.com/ssfdust/wszqkzqk-deepin-wine-tim-arch)
 
-## 更新日志
+* [@countstarlight](https://github.com/countstarlight) 的 [deepin-wine-qq-arch](https://github.com/countstarlight/deepin-wine-qq-arch)
 
-还没写
