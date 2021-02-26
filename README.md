@@ -11,7 +11,7 @@
   </a>
 </p>
 
-Deepin 打包的 QQ音乐 容器移植到 Archlinux，不依赖 `deepin-wine5`，包含定制的注册表配置。
+Deepin 打包的 QQ音乐 容器移植到 Archlinux，依赖 `deepin-wine5`。
 
 <!-- TOC -->
 
@@ -20,7 +20,6 @@ Deepin 打包的 QQ音乐 容器移植到 Archlinux，不依赖 `deepin-wine5`�
     - [用安装包安装](#用安装包安装)
     - [本地打包安装](#本地打包安装)
 - [设置](#设置)
-- [兼容性记录](#兼容性记录)
 - [切换到 `deepin-wine`](#切换到-deepin-wine)
     - [自动切换(推荐)](#自动切换)
 - [卸载](#卸载)
@@ -36,22 +35,7 @@ Deepin 打包的 QQ音乐 容器移植到 Archlinux，不依赖 `deepin-wine5`�
 
 ## 安装
 
-`deepin-wine-qqmusic` 依赖`Multilib`仓库中的 `wine`，`wine-gecko` 和 `wine-mono`，Archlinux默认没有开启 `Multilib`仓库，需要编辑`/etc/pacman.conf`，取消对应行前面的注释([Archlinux wiki](https://wiki.archlinux.org/index.php/Official_repositories#multilib)):
-
-```diff
-# If you want to run 32 bit applications on your x86_64 system,
-# enable the multilib repositories as required here.
-
-#[multilib-testing]
-#Include = /etc/pacman.d/mirrorlist
-
--#[multilib]
--#Include = /etc/pacman.d/mirrorlist
-+[multilib]
-+Include = /etc/pacman.d/mirrorlist
-```
-
-以下三种安装方式效果相同，选择一种即可
+`deepin-wine-qqmusic` 依赖AUR中的 `deepin-wine5`，若你并非使用AUR助手从AUR安装，你可能需要手动从AUR安装它。
 
 ### 从AUR安装
 
@@ -95,40 +79,26 @@ dpi，目录映射等可以在 `winecfg` 进行设置，打开 `winecfg` 的命�
 /opt/apps/com.qq.music.deepin/files/run.sh winecfg
 ```
 
-## 兼容性记录
 
-暂未整理 :(
+## 切换到原版Wine
 
-## 切换到 `deepin-wine`
-
-> 根据 [deepin-wine-wechat-arch#15](https://github.com/countstarlight/deepin-wine-wechat-arch/issues/15#issuecomment-515455845)，[deepin-wine-wechat-arch#27](https://github.com/countstarlight/deepin-wine-wechat-arch/issues/27)，由 [@feileb](https://github.com/feileb), [@violetbobo](https://github.com/violetbobo), [@HE7086](https://github.com/HE7086)提供的方法
-
-原版 `wine` 在 [DDE(Deepin Desktop Environment)](https://www.deepin.org/dde/) 上，有托盘图标无法响应鼠标事件([deepin-wine-tim-arch#21](https://github.com/countstarlight/deepin-wine-tim-arch/issues/21))的问题，以及窗口阴影可能不正常的问题，可以选择切换到 `deepin-wine5`。
+一个实验性功能。
 
 ### 自动切换(推荐)
 
 ```bash
-/opt/apps/com.qq.music.deepin/files/run.sh -d
+/opt/apps/com.qq.music.deepin/files/run.sh -o
 ```
 
-这会安装需要的依赖并自动切换到 `deepin-wine5`。
+这会安装需要的依赖并自动切换到原版Wine.
 
-> 该命令会切换到 AUR 仓库：[deepin-wine5](https://aur.archlinux.org/packages/deepin-wine5)
-
-
-切换回 `wine`：
+切换回 `deepin-wine5`：
 
 ```bash
-rm $HOME/.deepinwine/Deepin-QQMusic/deepin
+rm $HOME/.deepinwine/Deepin-QQMusic/originalwine
 ```
 
-如果要卸载自动安装的依赖：
-
-```bash
-sudo pacman -Rns deepin-wine5
-```
-
-**注意：切换到 `deepin-wine` 后，对 `wine` 的修改，如更改dpi，都改为对 `deepin-wine` 的修改**
+**注意：切换到原版 wine 会自动删除WINEPREFIX，且这是个实验性功能，可能有大量Bug，强烈不推荐使用。**
 
 ## 卸载
 
@@ -144,13 +114,6 @@ QQ音乐在本地保存的数据不会被删除，如下载的音乐。
 
 ## 常见问题及解决
 
-### 窗口阴影不总是跟随窗口
-
-参照[切换到 `deepin-wine`](#切换到-deepin-wine) 解决
-
-### 网络连接状态改变后不能重连
-
-参照[切换到 `deepin-wine`](#切换到-deepin-wine) 解决
 
 ### 高分辨率屏幕支持
 
