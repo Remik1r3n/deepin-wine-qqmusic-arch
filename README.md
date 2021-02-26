@@ -55,7 +55,11 @@ Deepin 打包的 QQ音乐 容器移植到 Archlinux，不依赖 `deepin-wine5`�
 
 ### 从AUR安装
 
-暂未上架AUR.
+已添加到 AUR [deepin-wine-qqmusic](https://aur.archlinux.org/packages/deepin-wine-qqmusic/)，可使用 `yay` 或 `yaourt` 安装：
+
+```shell
+yay -S deepin-wine-qqmusic
+```
 
 ### 用安装包安装
 
