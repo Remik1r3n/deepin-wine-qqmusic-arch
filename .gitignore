@@ -1,7 +1,6 @@
 QQ*
-PCQQ*
-com.qq.im.deepin*
-deepin-wine-qq-*
+com.qq.music.deepin*
+deepin-wine-qqmusic-*
 pkg/
 src/
 /reg_tmp_fixed/
