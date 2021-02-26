@@ -35,8 +35,8 @@ deploy:
   token: $GH_TOKEN
   file_glob: true
   file:
-    - "deepin-wine-qq*.pkg*"
+    - "deepin-wine-qqmusic*.pkg*"
   on:
     tags: true
     all_branches: true
-    repo: countstarlight/deepin-wine-qq-arch
+    repo: Lapis-Apple/deepin-wine-qq-arch
