@@ -10,7 +10,7 @@ pkgdesc="Tencent QQMusic on Deepin Wine5(${debpkgname}) For Archlinux"
 arch=("x86_64")
 url="https://y.qq.com/"
 license=('custom')
-depends=(depends=('p7zip' 'deepin-wine6-stable' 'deepin-wine-helper' 'xorg-xwininfo' 'wqy-microhei' 'lib32-alsa-lib' 'lib32-alsa-plugins' 'lib32-libpulse' 'lib32-openal' 'lib32-mpg123' 'lib32-gnutls')
+depends=('p7zip' 'deepin-wine5' 'xorg-xwininfo')
 conflicts=('deepin.com.qq.qqmusic')
 install="deepin-wine-qqmusic.install"
 _mirror="https://community-store-packages.deepin.com"
